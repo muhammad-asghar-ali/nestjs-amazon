@@ -1,5 +1,5 @@
 import { Body, Controller, HttpStatus, Post, Res } from "@nestjs/common";
-import { RegisterUserDto } from "src/user/user.dto";
+import { LoginUserDto, RegisterUserDto } from "src/user/user.dto";
 import { UserDetails } from "src/user/user.interface";
 import { AuthService } from "./auth.service";
 
@@ -16,7 +16,21 @@ export class AuthController {
 
     return res.status(HttpStatus.OK).json({
       status: "OK",
-      message: "Record Updated Successfully",
+      message: "Register Successfully",
+      data: result,
+    });
+  }
+
+  @Post("login")
+  public async login(
+    @Body() user: LoginUserDto,
+    @Res() res
+  ): Promise<{ token: string } | null> {
+    const result = await this._svc.login(user);
+
+    return res.status(HttpStatus.OK).json({
+      status: "OK",
+      message: "Login Successfully",
       data: result,
     });
   }
