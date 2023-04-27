@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtGuard } from "src/auth/guards/jwt.guard";
 import { CreateProductDto, UpdateProductDto } from "./product.dto";
 import { ProductDoc } from "./product.schema";
 import { ProductService } from "./product.service";
@@ -45,6 +47,7 @@ export class ProductController {
     });
   }
 
+  @UseGuards(JwtGuard)
   @Get(":id")
   public async getProductById(
     @Param("id") id: string,
