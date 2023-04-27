@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
   Res,
+  UseGuards,
 } from "@nestjs/common";
+import { JwtGuard } from "src/auth/guards/jwt.guard";
 import { CreateProductDto, UpdateProductDto } from "./product.dto";
 import { ProductDoc } from "./product.schema";
 import { ProductService } from "./product.service";
@@ -18,6 +20,7 @@ import { ProductService } from "./product.service";
 export class ProductController {
   constructor(private readonly _svc: ProductService) {}
 
+  @UseGuards(JwtGuard)
   @Post()
   public async createProduct(
     @Body() product: CreateProductDto,
@@ -45,6 +48,7 @@ export class ProductController {
     });
   }
 
+  @UseGuards(JwtGuard)
   @Get(":id")
   public async getProductById(
     @Param("id") id: string,
@@ -59,6 +63,7 @@ export class ProductController {
     });
   }
 
+  @UseGuards(JwtGuard)
   @Delete(":id")
   public async deleteProductById(
     @Param("id") id: string,
@@ -73,6 +78,7 @@ export class ProductController {
     });
   }
 
+  @UseGuards(JwtGuard)
   @Patch(":id")
   public async updateProductById(
     @Param("id") id: string,
