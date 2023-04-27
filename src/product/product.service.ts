@@ -25,8 +25,7 @@ export class ProductService {
   }
 
   public async getAllProducts(): Promise<ProductDoc[]> {
-   
-
+    
     const products = await this.model.find().exec();
     if (!products.length) {
       throw new HttpException("products not found", HttpStatus.NOT_FOUND);

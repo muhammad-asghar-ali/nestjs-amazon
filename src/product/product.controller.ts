@@ -20,6 +20,7 @@ import { ProductService } from "./product.service";
 export class ProductController {
   constructor(private readonly _svc: ProductService) {}
 
+  @UseGuards(JwtGuard)
   @Post()
   public async createProduct(
     @Body() product: CreateProductDto,
@@ -62,6 +63,7 @@ export class ProductController {
     });
   }
 
+  @UseGuards(JwtGuard)
   @Delete(":id")
   public async deleteProductById(
     @Param("id") id: string,
@@ -76,6 +78,7 @@ export class ProductController {
     });
   }
 
+  @UseGuards(JwtGuard)
   @Patch(":id")
   public async updateProductById(
     @Param("id") id: string,
